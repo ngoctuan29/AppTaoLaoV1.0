@@ -68,17 +68,21 @@ namespace DataSync.BioNetSync
                 db.Transaction = db.Connection.BeginTransaction();
                 foreach (var cl in Clm)
                 {
-                    var kyt = db.PSMapsXN_DichVus.FirstOrDefault(p => p.IDKyThuatXN == cl.IDKyThuatXN && p.IDDichVu == cl.IDDichVu);
-                    if (kyt != null)
-                    {
 
-                    }
-                    else
+                    var kyt = db.PSMapsXN_DichVus.FirstOrDefault(p => p.IDKyThuatXN == cl.IDKyThuatXN && p.IDDichVu == cl.IDDichVu);
+                    if (kyt == null)
                     {
                         PSMapsXN_DichVu kyth = new PSMapsXN_DichVu();
                         kyth.IDKyThuatXN = cl.IDKyThuatXN;
                         kyth.IDDichVu = cl.IDDichVu;
                         db.PSMapsXN_DichVus.InsertOnSubmit(kyth);
+                        db.SubmitChanges();
+                    }
+                    else
+                    {
+                        var term = kyt.RowIDDichVuMaps;
+                        kyt = cl;
+                        kyt.RowIDDichVuMaps = term;
                         db.SubmitChanges();
                     }
 

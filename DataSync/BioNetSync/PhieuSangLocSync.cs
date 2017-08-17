@@ -1,24 +1,10 @@
-﻿using System;
+﻿using BioNetModel;
+using BioNetModel.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BioNetModel.Data;
-using BioNetModel;
-using Bionet.API.Models;
-using System.Net;
-using System.Security;
 using System.Web.Script.Serialization;
-using System.Web;
-using System.Data.Linq;
-using System.IO;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Security.Cryptography;
-using DataSync;
-using System.Data;
-using System.Reflection;
-using DataSync.BioNetSync;
-using System.Drawing;
 
 
 namespace DataSync.BioNetSync
@@ -26,10 +12,10 @@ namespace DataSync.BioNetSync
     public class PhieuSangLocSync
     {
         private static BioNetDBContextDataContext db = null;
-        private static string linkGetPhieuSangLoc = "/api/trungtamsangloc/getall?keyword=&page=0&pagesize=20";
-        private static string linkPostPhieuSangLoc = "/api/trungtamsangloc/updateFromApp";
+        private static string linkGetPhieuSangLoc = "/api/phieusangloc/getall?keyword=&page=0&pagesize=20";
+        private static string linkPostPhieuSangLoc = "/api/phieusangloc/AddUpFromApp";
 
-        public static PsReponse GetThongTinTrungTam()
+        public static PsReponse GetPhieuSangLoc()
         {
             PsReponse res = new PsReponse();
             res.Result = true;
@@ -48,44 +34,22 @@ namespace DataSync.BioNetSync
                         {
                             string json = result.ValueResult;
                             JavaScriptSerializer jss = new JavaScriptSerializer();
-                            ObjectModel.RootObjectAPI Repo = jss.Deserialize<ObjectModel.RootObjectAPI>(json);
-                            if (Repo != null)
+
+                             ObjectModel.RootObjectAPI  psl = jss.Deserialize<ObjectModel.RootObjectAPI>(json);
+                            //List<PSPatient> patient = jss.Deserialize<List<PSPatient>>(json);
+                            List<PSPhieuSangLoc> lstpsl = new List<PSPhieuSangLoc>();
+                            if (psl.TotalCount > 0)
                             {
-                                if (Repo.TotalCount > 0)
+                                foreach(var item in psl.Items)
                                 {
-                                    var item = Repo.Items[0];
-                                    PSThongTinTrungTam tt = new PSThongTinTrungTam();
-                                    tt.Diachi = item["DiaChiTTSL"];
-                                    tt.DienThoai = item["SDTTTSL"];
-                                    tt.ID = item["ID"];
-                                    tt.LicenseKey = item["SDTTTSL"];
-                                    var Logo = item["LicenseKey"];
-                                    if (Logo != null)
-                                    {
-                                        try
-                                        {
-                                            byte[] b = Logo.ToArray();
-                                            //MemoryStream ms = new MemoryStream(b);
-                                            //Image img = Image.FromStream(ms);
-                                            tt.Logo = b;
-                                        }
-                                        catch { }
-                                    }
-                                    tt.MaTrungTam = item["MaTTSL"];
-                                    //   tt.MaVietTat =  item["MaTTSL"].t;
-                                    tt.TenTrungTam = item["TenTTSL"];
-                                    var resup = UpdateThongTinTrungTam(tt);
-                                    if (!resup.Result)
-                                    {
-                                        res.Result = false;
-                                        res.StringError = resup.StringError;
-                                    }
+                                    PSPhieuSangLoc term = new PSPhieuSangLoc();
+                                    term = cn.CovertDynamicToObjectModel(item, term);
+                                    lstpsl.Add(term);
                                 }
-                            }
-                            else
-                            {
-                                res.Result = false;
-                                res.StringError = result.ErorrResult;
+                                //UpdatePatient(patient);
+                                UpdatePhieuSangLoc(lstpsl);
+                                res.Result = true;
+
                             }
                         }
                         else
@@ -116,7 +80,7 @@ namespace DataSync.BioNetSync
             }
             return res;
         }
-        public static PsReponse UpdateThongTinTrungTam(PSThongTinTrungTam tt)
+        public static PsReponse UpdatePhieuSangLoc(List<PSPhieuSangLoc> lstpsl)
         {
 
             PsReponse res = new PsReponse();
@@ -125,50 +89,36 @@ namespace DataSync.BioNetSync
             {
                 ProcessDataSync cn = new ProcessDataSync();
                 db = cn.db;
+                var account = db.PSPhieuSangLocs.FirstOrDefault();
                 db.Connection.Open();
                 db.Transaction = db.Connection.BeginTransaction();
-                PSThongTinTrungTam ttam = db.PSThongTinTrungTams.FirstOrDefault();
-                if (ttam == null)
+                foreach (var psl in lstpsl)
                 {
-                    PSThongTinTrungTam ttnew = new PSThongTinTrungTam();
-                    ttnew.Diachi = Encoding.UTF8.GetString(Encoding.Default.GetBytes(tt.Diachi));
-                    ttnew.DienThoai = tt.DienThoai;
-                    ttnew.ID = tt.ID;
-                    ttnew.LicenseKey = tt.LicenseKey;
-                    ttnew.Logo = tt.Logo;
-                    ttnew.MaTrungTam = tt.MaTrungTam;
-                    ttnew.MaVietTat = tt.MaTrungTam.Substring(1, 2);
-                    ttnew.TenTrungTam = Encoding.UTF8.GetString(Encoding.Default.GetBytes(tt.TenTrungTam));
-                    db.PSThongTinTrungTams.InsertOnSubmit(ttnew);
-                    db.SubmitChanges();
-                    res.Result = true;
-                }
-                else
-                 if (string.IsNullOrEmpty(ttam.ID))
-                {
-                    res.Result = true;
-                    db.PSThongTinTrungTams.FirstOrDefault().LicenseKey = tt.LicenseKey;
-                    db.PSThongTinTrungTams.FirstOrDefault().ID = tt.ID;
-                    db.SubmitChanges();
-                }
-                else
-                if (ttam.ID == tt.ID && ttam.MaTrungTam == tt.MaTrungTam)
-                {
-                    if (ttam.isDongBo != false)
+                    var psldb = db.PSPhieuSangLocs.FirstOrDefault(p => p.IDPhieu == psl.IDPhieu);
+                    if (psldb != null)
                     {
-                        res.Result = true;
-                        db.PSThongTinTrungTams.FirstOrDefault().LicenseKey = tt.LicenseKey;
-                        db.PSThongTinTrungTams.FirstOrDefault().isDongBo = true;
+                        var term = psl.RowIDPhieu;
+                        psldb = psl;
+                        psldb.RowIDPhieu = term;
                         db.SubmitChanges();
+
                     }
+                    else
+                    {
+                        PSPhieuSangLoc newpsl = new PSPhieuSangLoc();
+                        newpsl = psl;
+                        newpsl.RowIDPhieu = 0;
+                        newpsl.isDongBo = true;
+                        db.PSPhieuSangLocs.InsertOnSubmit(newpsl);
+                        db.SubmitChanges();
+
+                    }
+
                 }
-                else
-                {
-                    res.Result = false;
-                    res.StringError = "ID giữa Trung tâm và tổng cục không tương xứng, vui lòng kiểm tra lại!";
-                }
+
                 db.Transaction.Commit();
                 db.Connection.Close();
+                res.Result = true;
 
 
             }
@@ -181,5 +131,102 @@ namespace DataSync.BioNetSync
             }
             return res;
         }
+
+        public static PsReponse PostPhieuSangLoc()
+        {
+            PsReponse res = new PsReponse();
+            try
+            {
+                ProcessDataSync cn = new ProcessDataSync();
+                db = cn.db;
+                var account = db.PSAccount_Syncs.FirstOrDefault();
+                if (account != null)
+                {
+                    string token = cn.GetToken(account.userName, account.passWord);
+                    if (!string.IsNullOrEmpty(token))
+                    {
+                        var datas = db.PSPhieuSangLocs.Where(p => p.isDongBo == false);
+                        foreach (var data in datas)
+                        {
+                            string jsonstr = new JavaScriptSerializer().Serialize(data);
+                            var result = cn.PostRespone(cn.CreateLink(linkPostPhieuSangLoc), token, jsonstr);
+                            if (result.Result)
+                            {
+                                res.StringError += "Dữ liệu đơn vị " + data.IDCoSo + " đã được đồng bộ lên tổng cục \r\n";
+                                List<PSPhieuSangLoc> lstpsl = new List<PSPhieuSangLoc>();
+                                lstpsl.Add(data);
+                                var resupdate = UpdatePhieuSangLoc(lstpsl);
+                                if (!resupdate.Result)
+                                {
+                                    res.StringError += "Dữ liệu đơn vị " + data.IDCoSo + " chưa được cập nhật \r\n";
+                                }
+                            }
+                            else
+                            {
+                                res.Result = false;
+                                res.StringError += "Dữ liệu đơn vị " + data.IDCoSo + " chưa được đồng bộ lên tổng cục \r\n";
+                            }
+
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                res.Result = false;
+                res.StringError += DateTime.Now.ToString() + "Lỗi khi đồng bộ dữ liệu Danh Sách Đơn Vị Lên Tổng Cục \r\n " + ex.Message;
+
+            }
+            return res;
+        }
+
+        //public static PsReponse UpdatePatient(List<PSPatient> lstPatient) {
+        //    PsReponse res = new PsReponse();
+
+        //    try
+        //    {
+        //        ProcessDataSync cn = new ProcessDataSync();
+        //        db = cn.db;
+        //        var account = db.PSPatients.FirstOrDefault();
+        //        db.Connection.Open();
+        //        db.Transaction = db.Connection.BeginTransaction();
+        //        foreach (var patient in lstPatient)
+        //        {
+        //            var patientdb = db.PSPatients.FirstOrDefault(p => p.MaBenhNhan == patient.MaBenhNhan && p.MaKhachHang == patient.MaKhachHang);
+        //            if (patientdb != null)
+        //            {
+        //                var term = patientdb.RowIDBenhNhan;
+        //                patientdb = patient;
+        //                patientdb.RowIDBenhNhan = term;
+        //                db.SubmitChanges();
+
+        //            }
+        //            else
+        //            {
+        //                PSPatient newpatient = new PSPatient();
+        //                newpatient = patient;
+        //                db.PSPatients.InsertOnSubmit(newpatient);
+        //                db.SubmitChanges();
+        //            }
+
+        //        }
+
+        //        db.Transaction.Commit();
+        //        db.Connection.Close();
+        //        res.Result = true;
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        db.Transaction.Rollback();
+        //        db.Connection.Close();
+        //        res.Result = false;
+        //        res.StringError = ex.ToString();
+        //    }
+        //    return res;
+        //}
     }
 }

@@ -78,6 +78,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BioNetSync\BenhNhanNguyCoCaoSync.cs" />
+    <Compile Include="BioNetSync\ChiDinhSync.cs" />
     <Compile Include="BioNetSync\DanhMucChiCucSync.cs" />
     <Compile Include="BioNetSync\DanhMucChuongTrinhSync.cs" />
     <Compile Include="BioNetSync\DanhMucDanhGiaChatLuongMau.cs" />
@@ -88,10 +90,14 @@
     <Compile Include="BioNetSync\DanhMucGoiDichVuTheoDonViSync.cs" />
     <Compile Include="BioNetSync\DanhMucKyThuatSync.cs" />
     <Compile Include="BioNetSync\DanhMucThongSoSync.cs" />
+    <Compile Include="BioNetSync\KetQuaSync.cs" />
     <Compile Include="BioNetSync\MappingKyThuat_DichVuSync.cs" />
     <Compile Include="BioNetSync\MappingThongso_KyThuatSync.cs" />
+    <Compile Include="BioNetSync\PatientSync.cs" />
     <Compile Include="BioNetSync\PhieuSangLocSync.cs" />
     <Compile Include="BioNetSync\ThongTinTrungTamSync.cs" />
+    <Compile Include="BioNetSync\TiepNhanSync.cs" />
+    <Compile Include="BioNetSync\TraKetQuaSync.cs" />
     <Compile Include="FrmStartupSync.cs">
       <SubType>Form</SubType>
     </Compile>

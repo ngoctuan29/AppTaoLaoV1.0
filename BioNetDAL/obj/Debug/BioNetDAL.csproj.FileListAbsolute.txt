@@ -40,3 +40,10 @@ D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetDAL\bin\Debug\BioNetModel.
 D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetDAL\obj\Debug\BioNetDAL.csprojResolveAssemblyReference.cache
 D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetDAL\obj\Debug\BioNetDAL.dll
 D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetDAL\obj\Debug\BioNetDAL.pdb
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetDAL\bin\Debug\BioNetDAL.dll
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetDAL\bin\Debug\BioNetDAL.pdb
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetDAL\bin\Debug\BioNetModel.dll
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetDAL\bin\Debug\BioNetModel.pdb
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetDAL\obj\Debug\BioNetDAL.csprojResolveAssemblyReference.cache
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetDAL\obj\Debug\BioNetDAL.dll
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetDAL\obj\Debug\BioNetDAL.pdb

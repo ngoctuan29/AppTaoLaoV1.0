@@ -52,3 +52,12 @@ D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetBLL\bin\Debug\BioNetModel.
 D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetBLL\obj\Debug\BioNetBLL.csprojResolveAssemblyReference.cache
 D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetBLL\obj\Debug\BioNetBLL.dll
 D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetBLL\obj\Debug\BioNetBLL.pdb
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\bin\Debug\BioNetBLL.dll
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\bin\Debug\BioNetBLL.pdb
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\bin\Debug\BioNetDAL.dll
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\bin\Debug\BioNetModel.dll
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\bin\Debug\BioNetDAL.pdb
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\bin\Debug\BioNetModel.pdb
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\obj\Debug\BioNetBLL.csprojResolveAssemblyReference.cache
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\obj\Debug\BioNetBLL.dll
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetBLL\obj\Debug\BioNetBLL.pdb

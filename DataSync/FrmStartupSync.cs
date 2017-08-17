@@ -36,8 +36,93 @@ namespace DataSync
             //this.PostDMGoiDichVuTheoDVCS();
             //this.GetDanhMucThongSo();
             //this.GetMapThongSo_KyThuat();
-            this.GetMapDichVu_KyThuat();
+            //this.GetMapDichVu_KyThuat();
+            this.GetPhieuSangLoc();
+            this.GetPatient();
+
+            //this.PostPhieuSangLoc();
+            //this.PostChiDinh();
+            //this.PostBenhNhanNguyCoCao();
+            //this.PostKetQua();
         }
+
+        
+        private void PostKetQua()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách bệnh nhân nguy cơ cao\r\n " }));
+            var res = KetQuaSync.PostKetQua();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách bệnh nhân nguy cơ cao thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách bệnh nhân nguy cơ cao \r\n" + res.StringError + "\r\n" }));
+            }
+
+            this.rtbStatus.ScrollToCaret();
+        }
+
+        private void PostBenhNhanNguyCoCao()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách bệnh nhân nguy cơ cao\r\n " }));
+            var res = BenhNhanNguyCoCaoSync.PostBenhNhanNguyCoCao();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách bệnh nhân nguy cơ cao thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách bệnh nhân nguy cơ cao \r\n" + res.StringError + "\r\n" }));
+            }
+
+            this.rtbStatus.ScrollToCaret();
+        }
+
+
+        private void PostChiDinh()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách chỉ định\r\n " }));
+            var res = ChiDinhSync.PostChiDinh();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách chỉ định thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách chỉ định \r\n" + res.StringError + "\r\n" }));
+            }
+
+            this.rtbStatus.ScrollToCaret();
+        }
+
+
+        private void GetPatient()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu Patient \r\n " }));
+            var res = PatientSync.GetPatient();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Patient thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Patient KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
+            }
+        }
+
 
         private void GetDanhMucDanhGiaChatLuongMau()
         {
@@ -292,7 +377,7 @@ namespace DataSync
             if (res.Result)
             {
                 this.rtbStatus.SelectionColor = Color.LightYellow;
-                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Danh mục thông số \r\n " }));
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Danh mục thông số thành công\r\n " }));
             }
             else
             {
@@ -311,7 +396,7 @@ namespace DataSync
             if (res.Result)
             {
                 this.rtbStatus.SelectionColor = Color.LightYellow;
-                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Maps thông số - kỹ thuật \r\n " }));
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Maps thông số - kỹ thuật thành công\r\n " }));
             }
             else
             {
@@ -329,7 +414,7 @@ namespace DataSync
             if (res.Result)
             {
                 this.rtbStatus.SelectionColor = Color.LightYellow;
-                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Maps dịch vụ - kỹ thuật \r\n " }));
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Maps dịch vụ - kỹ thuật thành công \r\n " }));
             }
             else
             {
@@ -339,7 +424,43 @@ namespace DataSync
             this.rtbStatus.ScrollToCaret();
 
         }
-        
+
+        private void GetPhieuSangLoc()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang lấy dữ liệu phiếu sàng lọc \r\n " }));
+            var res = PhieuSangLocSync.GetPhieuSangLoc();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu phiếu sàng lọc thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu phiếu sàng lọc KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError }));
+            }
+            this.rtbStatus.ScrollToCaret();
+
+        }
+
+        private void PostPhieuSangLoc()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu phiếu sàng lọc \r\n " }));
+            var res = PhieuSangLocSync.PostPhieuSangLoc();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu phiếu sàng lọc thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu phiếu sàng lọc KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
+            }
+            this.rtbStatus.ScrollToCaret();
+        }
 
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {

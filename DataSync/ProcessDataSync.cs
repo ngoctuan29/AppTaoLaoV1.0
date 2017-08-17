@@ -154,8 +154,11 @@ namespace DataSync
                 
 
                 if (prop.PropertyType.ToString().Contains("DateTime"))
-                {
-                    prop.SetValue(ct, Convert.ToDateTime(item[prop.Name]), null);
+                { 
+                    if (item[prop.Name] != null)
+                        prop.SetValue(ct, Convert.ToDateTime(item[prop.Name]), null);
+                    else
+                        prop.SetValue(ct, null, null);
                 }
                 else
                     if (prop.PropertyType.ToString().Contains("Boolean"))
@@ -190,6 +193,13 @@ namespace DataSync
                     try
                     {
                         prop.SetValue(ct, Convert.ToDecimal(item[prop.Name]), null);
+                    }
+                    catch { prop.SetValue(ct, 0, null); }
+                else
+                    if (prop.PropertyType.ToString().Contains("Byte"))
+                    try
+                    {
+                        prop.SetValue(ct, Convert.ToByte(item[prop.Name]), null);
                     }
                     catch { prop.SetValue(ct, 0, null); }
                 else
