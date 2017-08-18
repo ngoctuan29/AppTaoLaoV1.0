@@ -45,7 +45,7 @@ namespace DataSync.BioNetSync
                         foreach (var data in datas)
                         {
                             DanhMucChiCucViewModel datac = new DanhMucChiCucViewModel();
-                            var datact = cn.CovertDynamicToObjectModel(data, datac);
+                            var datact = cn.ConvertObjectToObject(data, datac);
                             string jsonstr = new JavaScriptSerializer().Serialize(datact);
                             var result = cn.PostRespone(cn.CreateLink(linkPostDanhMucChiCuc), token, jsonstr);
                             if (result.Result)

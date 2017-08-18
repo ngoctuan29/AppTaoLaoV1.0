@@ -90,6 +90,7 @@
     <Compile Include="BioNetSync\DanhMucGoiDichVuTheoDonViSync.cs" />
     <Compile Include="BioNetSync\DanhMucKyThuatSync.cs" />
     <Compile Include="BioNetSync\DanhMucThongSoSync.cs" />
+    <Compile Include="BioNetSync\DotChuanDoanSync.cs" />
     <Compile Include="BioNetSync\KetQuaSync.cs" />
     <Compile Include="BioNetSync\MappingKyThuat_DichVuSync.cs" />
     <Compile Include="BioNetSync\MappingThongso_KyThuatSync.cs" />

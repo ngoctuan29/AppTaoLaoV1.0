@@ -1,4 +1,5 @@
-﻿using BioNetModel;
+﻿using Bionet.API.Models;
+using BioNetModel;
 using BioNetModel.Data;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,37 @@ namespace DataSync.BioNetSync
         private static BioNetDBContextDataContext db = null;
         private static string linkPostChiDinh = "/api/chidinhdv/AddUpFromApp";
 
+
+        public static PsReponse UpdateChiDinhChiTiet(PSChiDinhDichVuChiTiet cdct)
+        {
+            PsReponse res = new PsReponse();
+            res.Result = true;
+
+            try
+            {
+                ProcessDataSync cn = new ProcessDataSync();
+                db = cn.db;
+                db.Connection.Open();
+                db.Transaction = db.Connection.BeginTransaction();
+                var dv = db.PSChiDinhDichVuChiTiets.FirstOrDefault(p => p.MaChiDinh == cdct.MaChiDinh && p.MaDichVu == cdct.MaDichVu);
+                if(dv == null)
+                {
+                    dv.isDongBo = true;
+                    db.SubmitChanges();
+                }
+                db.Transaction.Commit();
+                db.Connection.Close();
+                res.Result = true;
+            }
+            catch (Exception ex)
+            {
+                db.Transaction.Rollback();
+                db.Connection.Close();
+                res.Result = false;
+                res.StringError = ex.ToString();
+            }
+            return res;
+        }
 
         public static PsReponse UpdateChiDinh(PSChiDinhDichVu cddv)
         {
@@ -61,15 +93,17 @@ namespace DataSync.BioNetSync
                         var datas = db.PSChiDinhDichVus.Where(x => x.isDongBo == false);
                         foreach(var data in datas)
                         {
-                            foreach(var cicle in data.PSChiDinhDichVuChiTiets.ToList())
+                            ChiDinhDichVuViewModel chidinhVM = new ChiDinhDichVuViewModel();
+                            var datact = cn.ConvertObjectToObject(data, chidinhVM);
+                            chidinhVM.listCDDVCTVM = new List<ChiDinhDichVuChiTietViewModel>();
+                            foreach(var cdct in data.PSChiDinhDichVuChiTiets)
                             {
-                                cicle.PSChiDinhDichVu = null;
-                                if (cicle.isDongBo == false)
-                                {
-                                    data.PSChiDinhDichVuChiTiets.Remove(cicle);
-                                }
+                                ChiDinhDichVuChiTietViewModel term = new ChiDinhDichVuChiTietViewModel();
+                                var t = cn.ConvertObjectToObject(cdct, term);
+                                chidinhVM.listCDDVCTVM.Add((ChiDinhDichVuChiTietViewModel)t);
                             }
-                            string jsonstr = new JavaScriptSerializer().Serialize(data);
+                            
+                            string jsonstr = new JavaScriptSerializer().Serialize(datact);
                             var result = cn.PostRespone(cn.CreateLink(linkPostChiDinh), token, jsonstr);
                             if (result.Result)
                             {

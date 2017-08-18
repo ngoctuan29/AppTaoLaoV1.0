@@ -24,29 +24,103 @@ namespace DataSync
         private void GetDuLieuBanDau()
         {
 
-            // this.PostThongTinTrungTam();
-            //  this.GetThongTinTrungTam();
-            // this.GetDanhMucChiCuc();
-            // this.PostDanhMucChiCuc();
-            //this.GetDanhMucDonViCoSo();
-            // this.GetDanhMucDichVu();
-            //this.PostDanhMucDonViCoSo();m
-            //this.GetDanhSachChuongTrinh();
-            //this.GetDMGoiDichVuTheoDVCS();
-            //this.PostDMGoiDichVuTheoDVCS();
-            //this.GetDanhMucThongSo();
-            //this.GetMapThongSo_KyThuat();
-            //this.GetMapDichVu_KyThuat();
+            this.PostThongTinTrungTam();
+            this.GetThongTinTrungTam();
+            this.GetDanhMucChiCuc();
+            this.PostDanhMucChiCuc();
+            this.GetDanhMucDonViCoSo();
+            this.GetDanhMucDichVu();
+            this.PostDanhMucDonViCoSo(); 
+            this.GetDanhSachChuongTrinh();
+            this.GetDMGoiDichVuTheoDVCS();
+            this.PostDMGoiDichVuTheoDVCS();
+            this.GetDanhMucThongSo();
+            this.GetMapThongSo_KyThuat();
+            this.GetMapDichVu_KyThuat();
             this.GetPhieuSangLoc();
             this.GetPatient();
+            this.PostDotChuanDoan();
+            this.PostPhieuSangLoc();
+            this.PostChiDinh();
+            this.PostBenhNhanNguyCoCao();
+            this.PostKetQua();
+            this.PostTraKetQua();
+            this.PostTiepNhan();
+            this.GetTiepNhan();
 
-            //this.PostPhieuSangLoc();
-            //this.PostChiDinh();
-            //this.PostBenhNhanNguyCoCao();
-            //this.PostKetQua();
         }
 
-        
+        private void PostTiepNhan()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách tiếp nhận\r\n " }));
+            var res = TiepNhanSync.PostTiepNhan();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách tiếp nhận\r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách tiếp nhận\r\n" + res.StringError + "\r\n" }));
+            }
+
+            this.rtbStatus.ScrollToCaret();
+        }
+
+        private void GetTiepNhan()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu Tiếp nhận \r\n " }));
+            var res = TiepNhanSync.GetTiepNhan();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Tiếp nhận thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Tiếp nhận KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
+            }
+        }
+        private void PostTraKetQua()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách trả kết quả\r\n " }));
+            var res = TraKetQuaSync.PostKetQua();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách trả kết quả\r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách trả kết quả\r\n" + res.StringError + "\r\n" }));
+            }
+
+            this.rtbStatus.ScrollToCaret();
+        }
+        private void PostDotChuanDoan()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách đợt chuẩn đoán\r\n " }));
+            var res = DotChuanDoanSync.PostDotChuanDoan();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách đợt chuẩn đoán thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách đợt chuẩn đoán\r\n" + res.StringError + "\r\n" }));
+            }
+
+            this.rtbStatus.ScrollToCaret();
+        }
         private void PostKetQua()
         {
             this.rtbStatus.SelectionColor = Color.LightYellow;
@@ -246,20 +320,20 @@ namespace DataSync
         }
         private void PostDanhMucDonViCoSo()
         {
-            //this.rtbStatus.SelectionColor = Color.LightYellow;
-            //this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu Đơn vị cơ sở \r\n " }));
-            //var res = ProcessDataSync.PostDanhMucDonViCoSo();
-            //if (res.Result)
-            //{
-            //    this.rtbStatus.SelectionColor = Color.LightYellow;
-            //    this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở thành công \r\n " }));
-            //}
-            //else
-            //{
-            //    this.rtbStatus.SelectionColor = Color.Red;
-            //    this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
-            //}
-            //this.rtbStatus.ScrollToCaret();
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu Đơn vị cơ sở \r\n " }));
+            var res = DanhMucDonViCoSoSync.PostDanhMucDonViCoSo();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
+            }
+            this.rtbStatus.ScrollToCaret();
         }
         private void GetDanhMucDonViCoSo()
         {
@@ -280,38 +354,38 @@ namespace DataSync
         }
         private void PostDanhMucChiCuc()
         {
-            //this.rtbStatus.SelectionColor = Color.LightYellow;
-            //this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu Đơn vị cơ sở \r\n " }));
-            //var res = ProcessDataSync.PostDanhMucChiCuc();
-            //if (res.Result)
-            //{
-            //    this.rtbStatus.SelectionColor = Color.LightYellow;
-            //    this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở thành công \r\n " }));
-            //}
-            //else
-            //{
-            //    this.rtbStatus.SelectionColor = Color.Red;
-            //    this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
-            //}
-            //this.rtbStatus.ScrollToCaret();
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu Đơn vị cơ sở \r\n " }));
+            var res = DanhMucChiCucSync.PostDanhMucChiCuc();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Đơn vị cơ sở KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
+            }
+            this.rtbStatus.ScrollToCaret();
         }
         private void GetDanhSachChuongTrinh()
         {
-            //this.rtbStatus.SelectionColor = Color.LightYellow;
-            //this.rtbStatus.AppendText(string.Concat(new object[] {DateTime.Now + " :Đang lấy dữ liệu Danh sách chương trình sàng lọc \r\n "}));
-            //var res = ProcessDataSync.GetDanhSachChuongTrinh();
-            //if(res.Result)
-            //{
-            //    this.rtbStatus.SelectionColor = Color.LightYellow;
-            //    this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Danh sách chương trình sàng lọc thành công \r\n " }));
-            //}
-            //else
-            //{
-            //    this.rtbStatus.SelectionColor = Color.Red;
-            //    this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Danh sách chương trình sàng lọc KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError  +"\r\n"}));
-            //}
-            //this.rtbStatus.ScrollToCaret();
-               
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang lấy dữ liệu Danh sách chương trình sàng lọc \r\n " }));
+            var res = DanhMucChuongTrinhSync.GetDanhSachChuongTrinh();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Danh sách chương trình sàng lọc thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Lấy dữ liệu Danh sách chương trình sàng lọc KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
+            }
+            this.rtbStatus.ScrollToCaret();
+
         }
         private void GetDanhMucDichVu()
         {
