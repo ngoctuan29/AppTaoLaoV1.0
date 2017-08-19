@@ -12,7 +12,7 @@ namespace DataSync.BioNetSync
     public class PhieuSangLocSync
     {
         private static BioNetDBContextDataContext db = null;
-        private static string linkGetPhieuSangLoc = "/api/phieusangloc/getall?keyword=&page=0&pagesize=20";
+        private static string linkGetPhieuSangLoc = "/api/phieusangloc/getallFromApp?keyword=&page=0&pagesize=20";
         private static string linkPostPhieuSangLoc = "/api/phieusangloc/AddUpFromApp";
 
         public static PsReponse GetPhieuSangLoc()
@@ -135,6 +135,7 @@ namespace DataSync.BioNetSync
         public static PsReponse PostPhieuSangLoc()
         {
             PsReponse res = new PsReponse();
+            res.Result = true;
             try
             {
                 ProcessDataSync cn = new ProcessDataSync();

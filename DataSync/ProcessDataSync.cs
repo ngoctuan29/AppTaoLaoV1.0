@@ -146,6 +146,26 @@ namespace DataSync
                 return res;
             }
         }
+
+        public object ConvertObjectToObject(object source,object des)
+        {
+            var props = des.GetType().GetProperties();
+
+            foreach (PropertyInfo prop in props)
+            {        
+                try
+                {
+                    var data = source.GetType().GetProperty(prop.Name).GetValue(source, null);
+                    prop.SetValue(des, data, null);
+
+                }
+                catch
+                {
+                    prop.SetValue(des, null, null);
+                }
+            }
+            return des;
+        }
         public  object CovertDynamicToObjectModel(dynamic item, object ct)
         {
             var props = ct.GetType().GetProperties();
@@ -249,7 +269,7 @@ namespace DataSync
                 string result = string.Empty;
                 WebClient webClient = new WebClient();
 
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create(link + "/?trungTamSangLocVm=");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(link);
                 httpWebRequest.ContentType = "application/x-www-form-urlencoded;charset=utf-8";
                 httpWebRequest.Headers.Add("Authorization", token);
                 httpWebRequest.Method = "POST";

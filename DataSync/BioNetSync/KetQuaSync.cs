@@ -1,4 +1,5 @@
-﻿using BioNetModel;
+﻿using Bionet.API.Models;
+using BioNetModel;
 using BioNetModel.Data;
 using System;
 using System.Collections.Generic;
@@ -61,15 +62,14 @@ namespace DataSync.BioNetSync
                         var datas = db.PSXN_KetQuas.Where(x => x.isDongBo == false);
                         foreach (var data in datas)
                         {
-                            foreach (var cicle in data.PSXN_KetQua_ChiTiets.ToList())
+                            XN_KetQuaViewModel des = new XN_KetQuaViewModel();
+                            cn.ConvertObjectToObject(data, des);
+                            des.lstKetQuaChiTiet = new List<XN_KetQua_ChiTietViewModel>();
+                            foreach (var chitiet in data.PSXN_KetQua_ChiTiets.ToList())
                             {
-                                cicle.PSXN_KetQua = null;
-
-
-                                if (cicle.isDongBo != false)
-                                {
-                                    data.PSXN_KetQua_ChiTiets.Remove(cicle);
-                                }
+                                XN_KetQua_ChiTietViewModel term = new XN_KetQua_ChiTietViewModel();
+                                cn.ConvertObjectToObject(chitiet, term);
+                                des.lstKetQuaChiTiet.Add(term);
                             }
                             string jsonstr = new JavaScriptSerializer().Serialize(data);
                             var result = cn.PostRespone(cn.CreateLink(linkPost), token, jsonstr);
