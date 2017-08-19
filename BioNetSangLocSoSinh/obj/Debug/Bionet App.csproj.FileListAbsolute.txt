@@ -2305,7 +2305,6 @@ D:\work\GitHub\BioNetSangLocSoSinh\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\B
 D:\work\GitHub\BioNetSangLocSoSinh\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\BioNetSangLocSoSinh.XtraForm2.resources
 D:\work\GitHub\BioNetSangLocSoSinh\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\Bionet App.csproj.GenerateResource.Cache
 D:\work\GitHub\BioNetSangLocSoSinh\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\BioNetSangLocSoSinh.exe.licenses
-D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\bin\Debug\BioNetSangLocSoSinh.exe.config
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\Bionet App.csprojResolveAssemblyReference.cache
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\BioNetSangLocSoSinh.DiaglogFrm.FrmChangePass.resources
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\BioNetSangLocSoSinh.DiaglogFrm.frmConfig.resources
@@ -2383,6 +2382,7 @@ D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\BioNetSangLocSoSinh.Us
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\BioNetSangLocSoSinh.XtraForm2.resources
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\Bionet App.csproj.GenerateResource.Cache
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\obj\Debug\BioNetSangLocSoSinh.exe.licenses
+D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\bin\Debug\BioNetSangLocSoSinh.exe.config
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\bin\Debug\BioNetSangLocSoSinh.exe
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\bin\Debug\BioNetSangLocSoSinh.pdb
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetSangLocSoSinh\bin\Debug\BioNetBLL.dll

@@ -21,7 +21,7 @@ namespace DataSync
         {
             
         }
-        private void GetDuLieuBanDau()
+        private void DongBoDuLieu()
         {
 
             this.PostThongTinTrungTam();
@@ -37,6 +37,7 @@ namespace DataSync
             this.GetDanhMucThongSo();
             this.GetMapThongSo_KyThuat();
             this.GetMapDichVu_KyThuat();
+
             this.GetPhieuSangLoc();
             this.GetPatient();
             this.PostDotChuanDoan();
@@ -47,6 +48,20 @@ namespace DataSync
             this.PostTraKetQua();
             this.PostTiepNhan();
             this.GetTiepNhan();
+
+        }
+        public  void GetDuLieuBanDau()
+        {
+            
+            this.GetThongTinTrungTam();
+            this.GetDanhMucChiCuc();          
+            this.GetDanhMucDonViCoSo();
+            this.GetDanhMucDichVu();            
+            this.GetDanhSachChuongTrinh();
+            this.GetDMGoiDichVuTheoDVCS();           
+            this.GetDanhMucThongSo();
+            this.GetMapThongSo_KyThuat();
+            this.GetMapDichVu_KyThuat();
 
         }
 
@@ -546,6 +561,11 @@ namespace DataSync
         }
 
         private void FrmStartupSync_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rtbStatus_TextChanged(object sender, EventArgs e)
         {
 
         }
