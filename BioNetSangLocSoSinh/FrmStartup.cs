@@ -13,6 +13,8 @@ using DevExpress.XtraBars.Ribbon;
 using BioNetModel.Data;
 using BioNetBLL;
 using DevExpress.XtraEditors;
+using DataSync;
+using System.Threading;
 
 namespace BioNetSangLocSoSinh
 {
@@ -29,7 +31,10 @@ namespace BioNetSangLocSoSinh
             if (BioBLL.CheckConnection())
             {
                 this.GetLogin();
-                }
+
+                Thread thread = new Thread(LoadDuLieu);
+                thread.Start();
+            }
             else
             {
                 DiaglogFrm.frmConfig frm = new DiaglogFrm.frmConfig();
@@ -38,6 +43,18 @@ namespace BioNetSangLocSoSinh
                     Application.Restart();
             }
 
+        }
+        private void LoadDuLieu()
+        {
+            BioNetDBContextDataContext db = null;
+            ProcessDataSync cn = new ProcessDataSync();
+            db = cn.db;
+            var term = db.PSThongTinTrungTams.FirstOrDefault();
+            if (term == null || term.MaTrungTam == null)
+            {
+                FrmStartupSync dl = new FrmStartupSync();
+                dl.GetDuLieuBanDau();
+            }
         }
 
         private void GetLogin()
@@ -48,7 +65,7 @@ namespace BioNetSangLocSoSinh
 
             if (!res.Result)
             {
-                XtraMessageBox.Show("Bản quyền phần mềm hết hạn,vui lòng liên hệ với nhà cung cấp! \r\n Thông tin chi tiết : "+ res.ResultString, "BioNet - Chương trình sàng lọc sơ sinh!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                XtraMessageBox.Show("Bản quyền phần mềm hết hạn,vui lòng liên hệ với nhà cung cấp! \r\n Thông tin chi tiết : " + res.ResultString, "BioNet - Chương trình sàng lọc sơ sinh!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             else
@@ -129,7 +146,7 @@ Vui lòng liên hệ mua bản quyền để sử dụng phần mềm không b�
             TabCreating(xTabMain, "Nhập liệu và đánh giá", frm);
             SplashScreenManager.CloseForm();
         }
-       
+
         private void barButtonItem3_ItemClick(object sender, ItemClickEventArgs e)
         {
             SplashScreenManager.ShowForm(this, typeof(DiaglogFrm.Waitingfrom), true, true, false);
@@ -167,13 +184,13 @@ Vui lòng liên hệ mua bản quyền để sử dụng phần mềm không b�
             int pnsize = 222;
             if (frmsize - 800 > 280)
             { pnsize = frmsize - 800; }
-            
+
             frm.PanelDanhSach.Width = pnsize;
             TabCreating(xTabMain, "Trả kết quả xét nghiệm", frm);
             SplashScreenManager.CloseForm();
         }
 
-        
+
 
         private void btnNhanVien_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -367,7 +384,7 @@ Vui lòng liên hệ mua bản quyền để sử dụng phần mềm không b�
         {
             SplashScreenManager.ShowForm(this, typeof(DiaglogFrm.Waitingfrom), true, true, false);
             //  Entry.FrmDMTrungTam frm = new Entry.FrmDMTrungTam();
-            Entry.FrmThongTinTrungTam frm= new Entry.FrmThongTinTrungTam();
+            Entry.FrmThongTinTrungTam frm = new Entry.FrmThongTinTrungTam();
             TabCreating(xTabMain, "Thông tin trung tâm", frm);
             SplashScreenManager.CloseForm();
         }
@@ -497,14 +514,15 @@ Vui lòng liên hệ mua bản quyền để sử dụng phần mềm không b�
         private void barButtonItem20_ItemClick(object sender, ItemClickEventArgs e)
         {
             SplashScreenManager.ShowForm(this, typeof(DiaglogFrm.Waitingfrom), true, true, false);
-           Entry.FrmDMNhomNhanVien frm = new Entry.FrmDMNhomNhanVien();
+            Entry.FrmDMNhomNhanVien frm = new Entry.FrmDMNhomNhanVien();
             TabCreating(xTabMain, "Nhóm chức danh nhân viên ", frm);
             SplashScreenManager.CloseForm();
         }
 
         private void barButtonItem21_ItemClick(object sender, ItemClickEventArgs e)
         {
-            try {
+            try
+            {
                 SplashScreenManager.ShowForm(this, typeof(DiaglogFrm.Waitingfrom), true, true, false);
                 FrmReports.FrmBaoCaoCoBan frm = new FrmReports.FrmBaoCaoCoBan();
                 TabCreating(xTabMain, "Báo cáo trung tâm sơ bộ", frm);

@@ -21,7 +21,11 @@ namespace DataSync
         {
             
         }
+<<<<<<< HEAD
         private void GetDuLieuBanDau()
+=======
+        private void DongBoDuLieu()
+>>>>>>> c9e179ab5372a57d8f938257cf719871486286be
         {
 
             this.PostThongTinTrungTam();
@@ -37,6 +41,10 @@ namespace DataSync
             this.GetDanhMucThongSo();
             this.GetMapThongSo_KyThuat();
             this.GetMapDichVu_KyThuat();
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9e179ab5372a57d8f938257cf719871486286be
             this.GetPhieuSangLoc();
             this.GetPatient();
             this.PostDotChuanDoan();
@@ -47,9 +55,79 @@ namespace DataSync
             this.PostTraKetQua();
             this.PostTiepNhan();
             this.GetTiepNhan();
+<<<<<<< HEAD
+
+=======
+
+        }
+        public  void GetDuLieuBanDau()
+        {
+            
+            this.GetThongTinTrungTam();
+            this.GetDanhMucChiCuc();          
+            this.GetDanhMucDonViCoSo();
+            this.GetDanhMucDichVu();            
+            this.GetDanhSachChuongTrinh();
+            this.GetDMGoiDichVuTheoDVCS();           
+            this.GetDanhMucThongSo();
+            this.GetMapThongSo_KyThuat();
+            this.GetMapDichVu_KyThuat();
 
         }
 
+        private void PostTiepNhan()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách tiếp nhận\r\n " }));
+            var res = TiepNhanSync.PostTiepNhan();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách tiếp nhận\r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách tiếp nhận\r\n" + res.StringError + "\r\n" }));
+            }
+
+            this.rtbStatus.ScrollToCaret();
+        }
+
+        private void GetTiepNhan()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu Tiếp nhận \r\n " }));
+            var res = TiepNhanSync.GetTiepNhan();
+            if (res.Result)
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Tiếp nhận thành công \r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu Tiếp nhận KHÔNG thành công\r\n Lỗi chi tiết : \r\n" + res.StringError + "\r\n" }));
+            }
+>>>>>>> c9e179ab5372a57d8f938257cf719871486286be
+        }
+        private void PostTraKetQua()
+        {
+            this.rtbStatus.SelectionColor = Color.LightYellow;
+            this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :Đang đồng bộ dữ liệu danh sách trả kết quả\r\n " }));
+            var res = TraKetQuaSync.PostKetQua();
+            if (string.IsNullOrEmpty(res.StringError))
+            {
+                this.rtbStatus.SelectionColor = Color.LightYellow;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + " :đồng bộ dữ liệu danh sách trả kết quả\r\n " }));
+            }
+            else
+            {
+                this.rtbStatus.SelectionColor = Color.Red;
+                this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách trả kết quả\r\n" + res.StringError + "\r\n" }));
+            }
+
+<<<<<<< HEAD
         private void PostTiepNhan()
         {
             this.rtbStatus.SelectionColor = Color.LightYellow;
@@ -101,6 +179,8 @@ namespace DataSync
                 this.rtbStatus.AppendText(string.Concat(new object[] { DateTime.Now + ":Thông tin chi tiết khi đồng bộ dữ liệu danh sách trả kết quả\r\n" + res.StringError + "\r\n" }));
             }
 
+=======
+>>>>>>> c9e179ab5372a57d8f938257cf719871486286be
             this.rtbStatus.ScrollToCaret();
         }
         private void PostDotChuanDoan()
@@ -546,6 +626,11 @@ namespace DataSync
         }
 
         private void FrmStartupSync_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rtbStatus_TextChanged(object sender, EventArgs e)
         {
 
         }

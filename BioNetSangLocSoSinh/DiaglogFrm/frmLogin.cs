@@ -55,6 +55,7 @@ namespace BioNetSangLocSoSinh.DiaglogFrm
                     {
                         this._EmployeeCode = BioBLL.GetEmployeeCode(txtUsername.Text);
                         this.Close();
+                        
                     }
                     else
                     {

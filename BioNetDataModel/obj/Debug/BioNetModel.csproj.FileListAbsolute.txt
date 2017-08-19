@@ -30,6 +30,5 @@ D:\work\BionetApp\BionetApp\BioNetSangLocSoSinh\BioNetDataModel\obj\Debug\BioNet
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetDataModel\bin\Debug\BioNetModel.dll.config
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetDataModel\bin\Debug\BioNetModel.dll
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetDataModel\bin\Debug\BioNetModel.pdb
-D:\Bionet-Git\AppTaoLaoV1.0\BioNetDataModel\obj\Debug\BioNetModel.csprojResolveAssemblyReference.cache
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetDataModel\obj\Debug\BioNetModel.dll
 D:\Bionet-Git\AppTaoLaoV1.0\BioNetDataModel\obj\Debug\BioNetModel.pdb

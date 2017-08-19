@@ -1,0 +1,10 @@
+
+BioNetBLL/bin/Debug/BioNetBLL.dll
+.vs/Bionet Project/v14/.suo
+BioNetBLL/bin/Debug/BioNetBLL.dll
+BioNetBLL/bin/Debug/BioNetBLL.pdb
+BioNetBLL/bin/Debug/BioNetDAL.dll
+BioNetBLL/bin/Debug/BioNetDAL.pdb
+BioNetBLL/bin/Debug/BioNetModel.dll
+*.dll
+*.pdb
